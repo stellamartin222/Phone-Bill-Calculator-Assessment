@@ -2,6 +2,8 @@ package uk.gov.dwp;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,11 +24,12 @@ public class PhoneBillCalculatorTest {
         assertEquals(3, result, "Should return the shortest call is 1 second");
     }
 
-    @Test
+    @ParameterizedTest
+    @CsvSource({"'00:00:15,123-456-789/n00:01:07,400-234-090', 45", "'00:02:33,123-456-789/n00:01:07,400-234-090', 201"})
     @DisplayName("Given two calls, returns the value when the lowest call is les than 5 minutes")
-    public void givenTwoReturnLowest(){
+    public void givenTwoReturnLowest(String input, int expected){
         PhoneBillCalculator phoneBillCalculator = new PhoneBillCalculator();
-        int result = phoneBillCalculator.calculateBill("00:00:15,123-456-789/n00:01:07,400-234-090");
-        assertEquals(45,result, "Should return the shortest call when less than 5 minutes");
+        int result = phoneBillCalculator.calculateBill(input);
+        assertEquals(expected,result, "Should return the shortest call when less than 5 minutes");
     }
 }
