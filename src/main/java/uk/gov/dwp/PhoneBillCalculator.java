@@ -1,8 +1,6 @@
 package uk.gov.dwp;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class PhoneBillCalculator {
     public int calculateBill(String input) {
@@ -11,37 +9,30 @@ public class PhoneBillCalculator {
             return 0;
         }
 
-        ArrayList<String> callDurationList = new ArrayList<String>();
+        ArrayList<String> callDurationList = new ArrayList<>();
         for(String log : phoneLogArr){
          callDurationList.add(log.substring(0, 8));
          }
 
         int shortestCallDuration = 0;
-        for(int i = 0;i < callDurationList.size(); i++){
-            String[] durationArray = callDurationList.get(i).split(":");
-            int time = Integer.parseInt(durationArray[2]);
-            if(shortestCallDuration == 0){
-                shortestCallDuration = time;
+        for (String callLength : callDurationList) {
+            String[] durationArray = callLength.split(":");
+            int hours = Integer.parseInt(durationArray[0]);
+            int minutes = Integer.parseInt(durationArray[1]);
+            int seconds = Integer.parseInt(durationArray[2]);
+            int totalSeconds = (hours * 3600) + (minutes * 60) + (seconds);
+
+            if (shortestCallDuration == 0) {
+                shortestCallDuration = totalSeconds;
             }
-            if (shortestCallDuration > time){
-                shortestCallDuration = time;
+            if (shortestCallDuration > totalSeconds) {
+                shortestCallDuration = totalSeconds;
             }
         }
 
         return shortestCallDuration * 3;
     }
 }
-
-//    PhoneCall(List<String> values) {
-//        phoneNumber = values.get(1);
-//        String[] durationArray = values.get(0).split(":");
-//        hours = Integer.valueOf(durationArray[0]);
-//        minutes = Integer.valueOf(durationArray[1]);
-//        seconds = Integer.valueOf(durationArray[2]);
-//        totalSeconds = (hours * 3600) + (minutes * 60) + (seconds);
-//    }
-
-
 
 // get the length of time for each
 // split time?
