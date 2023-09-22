@@ -32,4 +32,13 @@ public class PhoneBillCalculatorTest {
         int result = phoneBillCalculator.calculateBill(input);
         assertEquals(expected,result, "Should return the shortest call when less than 5 minutes");
     }
+
+    @Test
+    @DisplayName("Given three calls, less than 5 minutes in length made by seperate callers returns total")
+    public void givenThreeReturnTotal(){
+        PhoneBillCalculator phoneBillCalculator = new PhoneBillCalculator();
+        int result = phoneBillCalculator.calculateBill("00:00:15,123-456-789/n00:01:07,400-234-090/n00:00:20,123-456-745");
+        assertEquals(105, result, "should return the total of 3 seperate calls");
+    }
+
 }
