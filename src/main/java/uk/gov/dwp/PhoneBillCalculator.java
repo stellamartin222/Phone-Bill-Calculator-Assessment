@@ -20,7 +20,8 @@ public class PhoneBillCalculator {
     }
 
     private int callDurationCalculator(ArrayList<String> callDurationList){
-        int shortestCallDuration = 0;
+        int longestCallDuration = 0;
+        int totalCallDurationLength = 0;
         for (String callLength : callDurationList) {
             String[] durationArray = callLength.split(":");
             int hours = Integer.parseInt(durationArray[0]);
@@ -28,14 +29,16 @@ public class PhoneBillCalculator {
             int seconds = Integer.parseInt(durationArray[2]);
             int totalSeconds = (hours * 3600) + (minutes * 60) + (seconds);
 
-            if (shortestCallDuration == 0) {
-                shortestCallDuration = totalSeconds;
+            if (longestCallDuration == 0) {
+                longestCallDuration = totalSeconds;
             }
-            if (shortestCallDuration > totalSeconds) {
-                shortestCallDuration = totalSeconds;
+            if (longestCallDuration < totalSeconds) {
+                longestCallDuration = totalSeconds;
             }
+            totalCallDurationLength+=totalSeconds;
         }
-        return shortestCallDuration;
+
+        return totalCallDurationLength - longestCallDuration;
     }
 }
 
