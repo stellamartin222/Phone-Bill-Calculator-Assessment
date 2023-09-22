@@ -15,10 +15,12 @@ public class PhoneBillCalculatorTest {
     }
 
     @Test
-    @DisplayName("Given two calls, returns the lowest the rate when call is up to 5 minutes")
-    public void givenTwoReturnLowest(){
+    @DisplayName("Given two calls, returns the value when the lowest call is 1 second")
+    public void givenTwoReturnLowestWhenOneSecond(){
         PhoneBillCalculator phoneBillCalculator = new PhoneBillCalculator();
         int result = phoneBillCalculator.calculateBill("00:00:01,123-456-789/n00:01:07,400-234-090");
-        assertEquals(3, result, "Should return the shortest call when less than 5 minutes");
+        assertEquals(3, result, "Should return the shortest call is 1 second");
     }
+
+
 }

@@ -19,7 +19,7 @@ public class PhoneBillCalculator {
         int shortestCallDuration = 0;
         for(int i = 0;i < callDurationList.size(); i++){
             String[] durationArray = callDurationList.get(i).split(":");
-            int time = Integer.valueOf(durationArray[2]);
+            int time = Integer.parseInt(durationArray[2]);
             if(shortestCallDuration == 0){
                 shortestCallDuration = time;
             }
