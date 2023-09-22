@@ -14,6 +14,12 @@ public class PhoneBillCalculator {
          callDurationList.add(log.substring(0, 8));
          }
 
+        int callDuration = callDurationCalculator(callDurationList);
+
+        return callDuration * 3;
+    }
+
+    private int callDurationCalculator(ArrayList<String> callDurationList){
         int shortestCallDuration = 0;
         for (String callLength : callDurationList) {
             String[] durationArray = callLength.split(":");
@@ -29,11 +35,8 @@ public class PhoneBillCalculator {
                 shortestCallDuration = totalSeconds;
             }
         }
-
-        return shortestCallDuration * 3;
+        return shortestCallDuration;
     }
-
-
 }
 
 // get the length of time for each
