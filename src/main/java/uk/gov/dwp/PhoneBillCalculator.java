@@ -3,6 +3,10 @@ package uk.gov.dwp;
 import java.util.ArrayList;
 
 public class PhoneBillCalculator {
+
+    private static final int LESS_THAN_FIVE_MINUTE_MODIFIER = 3;
+    private static final int MORE_THAN_FIVE_MINUTE_MODIFIER = 150;
+    private static final int FIVE_MINUTES_IN_SECONDS = 300;
     public int calculateBill(String input) {
         String[] phoneLogArr = input.split("/n");
         if (phoneLogArr.length == 1) {
@@ -17,8 +21,8 @@ public class PhoneBillCalculator {
         int longestCallRate = 0;
         int totalCallDurationLength = 0;
         for(String callLength : callDurationList){
-            int callDuration = callDurationCalculator(callLength);
-            int callRate = rateModifierCalculator(callDuration);
+            int callDuration = getCallDuration(callLength);
+            int callRate = getCallRate(callDuration);
             if (longestCallRate == 0) {
                 longestCallRate = callRate;
             }
@@ -34,33 +38,25 @@ public class PhoneBillCalculator {
         return totalCallDurationLength;
     }
 
-    private int callDurationCalculator(String callDuration){
+    private int getCallDuration(String callDuration){
 
             String[] durationArray = callDuration.split(":");
             int hours = Integer.parseInt(durationArray[0]);
             int minutes = Integer.parseInt(durationArray[1]);
             int seconds = Integer.parseInt(durationArray[2]);
-            int totalSeconds = (hours * 3600) + (minutes * 60) + (seconds);
 
-        return totalSeconds;
+        return (hours * 3600) + (minutes * 60) + (seconds);
     }
 
-    private int rateModifierCalculator(int callDuration){
-        int callModifier = 0;
-        if(callDuration <= 300){
-            callModifier = 3;
+    private int getCallRate(int callDuration){
+        int callModifier;
+        if(callDuration <= FIVE_MINUTES_IN_SECONDS){
+            callModifier = LESS_THAN_FIVE_MINUTE_MODIFIER;
         } else{
-            callModifier = 150;
+            callModifier = MORE_THAN_FIVE_MINUTE_MODIFIER;
             callDuration = (callDuration/60) + 1;
         }
         System.out.print( callDuration + "  ");
         return callDuration * callModifier;
     }
 }
-
-// get the length of time for each
-// split time?
-// compare times
-
-// calculate lowest cost based on cost per second
-//return cost
