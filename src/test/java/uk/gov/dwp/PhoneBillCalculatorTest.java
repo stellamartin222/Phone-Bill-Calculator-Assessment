@@ -41,4 +41,12 @@ public class PhoneBillCalculatorTest {
         assertEquals(105, result, "should return the total of 3 seperate calls");
     }
 
+    @Test
+    @DisplayName("Given 2 calls over 5 minutes in length, return correct cost")
+    public void givenTwoOverFiveMinutesReturnCost(){
+        PhoneBillCalculator phoneBillCalculator = new PhoneBillCalculator();
+        int result = phoneBillCalculator.calculateBill("00:05:01,123-456-789/n00:07:03,400-234-090");
+        assertEquals(900, result, "Should return the correct total when the charged call if over five minutes");
+    }
+
 }
