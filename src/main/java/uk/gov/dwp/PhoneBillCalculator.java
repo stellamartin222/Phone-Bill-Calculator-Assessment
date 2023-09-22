@@ -7,8 +7,10 @@ public class PhoneBillCalculator {
     private static final int LESS_THAN_FIVE_MINUTE_MODIFIER = 3;
     private static final int MORE_THAN_FIVE_MINUTE_MODIFIER = 150;
     private static final int FIVE_MINUTES_IN_SECONDS = 300;
+    private static final String NEW_LINE_REGEX = "/n";
+    private static final String SEPARATE_NUMBER_REGEX = ":";
     public int calculateBill(String input) {
-        String[] phoneLogArr = input.split("/n");
+        String[] phoneLogArr = input.split(NEW_LINE_REGEX);
         if (phoneLogArr.length == 1) {
             return 0;
         }
@@ -40,7 +42,7 @@ public class PhoneBillCalculator {
 
     private int getCallDuration(String callDuration){
 
-            String[] durationArray = callDuration.split(":");
+            String[] durationArray = callDuration.split(SEPARATE_NUMBER_REGEX);
             int hours = Integer.parseInt(durationArray[0]);
             int minutes = Integer.parseInt(durationArray[1]);
             int seconds = Integer.parseInt(durationArray[2]);
@@ -52,11 +54,10 @@ public class PhoneBillCalculator {
         int callModifier;
         if(callDuration <= FIVE_MINUTES_IN_SECONDS){
             callModifier = LESS_THAN_FIVE_MINUTE_MODIFIER;
-        } else{
+        } else {
             callModifier = MORE_THAN_FIVE_MINUTE_MODIFIER;
-            callDuration = (callDuration/60) + 1;
+            callDuration = (callDuration / 60) + 1;
         }
-        System.out.print( callDuration + "  ");
         return callDuration * callModifier;
     }
 }

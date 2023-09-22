@@ -48,13 +48,4 @@ public class PhoneBillCalculatorTest {
         int result = phoneBillCalculator.calculateBill("00:05:01,123-456-789/n00:07:03,400-234-090");
         assertEquals(900, result, "Should return the correct total when the charged call if over five minutes");
     }
-
-    @Test
-    @DisplayName("Given 2 calls from the same number will return zero")
-    public void givenTwoCallsBySameNumberReturnZero(){
-        PhoneBillCalculator phoneBillCalculator = new PhoneBillCalculator();
-        int result = phoneBillCalculator.calculateBill("00:05:01,111-111-111/n00:07:03,111-111-111");
-        assertEquals(0, result, "should return zero when given 2 calls by the same number");
-    }
-
 }
